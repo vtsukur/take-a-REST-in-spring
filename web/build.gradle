@@ -1,0 +1,27 @@
+apply plugin: "spring-boot"
+apply plugin: "io.spring.dependency-management"
+
+buildscript {
+  ext {
+    springBootVersion = "1.2.3.RELEASE"
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath("io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE")
+  }
+}
+
+jar {
+  baseName = "take-a-REST-in-spring"
+}
+
+dependencies {
+  compile("org.springframework.boot:spring-boot-starter-data-jpa")
+  compile("org.springframework.boot:spring-boot-starter-hateoas")
+  compile("org.springframework.boot:spring-boot-starter-web")
+  runtime("org.hsqldb:hsqldb")
+  testCompile("org.springframework.boot:spring-boot-starter-test")
+}
