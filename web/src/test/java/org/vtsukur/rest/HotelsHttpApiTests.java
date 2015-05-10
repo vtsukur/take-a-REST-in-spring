@@ -57,11 +57,17 @@ public final class HotelsHttpApiTests {
         mockMvc.perform(get("/api/hotels")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
+                andExpect(jsonPath("$._links.self.href", not(isEmptyOrNullString()))).
+                andExpect(jsonPath("$._links.self.templated", is(true))).
                 andExpect(jsonPath("$._embedded.hotels", hasSize(2))).
                 andExpect(jsonPath("$._embedded.hotels[0].name", is(nobilis.getName()))).
                 andExpect(jsonPath("$._embedded.hotels[0]._links.self.href", not(isEmptyOrNullString()))).
                 andExpect(jsonPath("$._embedded.hotels[1].name", is(leopolis.getName()))).
-                andExpect(jsonPath("$._embedded.hotels[1]._links.self.href", not(isEmptyOrNullString())));
+                andExpect(jsonPath("$._embedded.hotels[1]._links.self.href", not(isEmptyOrNullString()))).
+                andExpect(jsonPath("$.page.size", is(20))).
+                andExpect(jsonPath("$.page.totalElements", is(2))).
+                andExpect(jsonPath("$.page.totalPages", is(1))).
+                andExpect(jsonPath("$.page.number", is(0)));
     }
 
 }
