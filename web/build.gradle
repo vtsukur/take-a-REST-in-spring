@@ -16,9 +16,14 @@ jar {
 }
 
 dependencies {
+  compile(project(":core-domain"))
+
   compile("org.springframework.boot:spring-boot-starter-data-jpa")
   compile("org.springframework.boot:spring-boot-starter-hateoas")
   compile("org.springframework.boot:spring-boot-starter-web")
+  compile("org.springframework.data:spring-data-rest-webmvc:2.3.0.RELEASE")
+
   runtime("org.hsqldb:hsqldb")
+
   testCompile("org.springframework.boot:spring-boot-starter-test")
 }

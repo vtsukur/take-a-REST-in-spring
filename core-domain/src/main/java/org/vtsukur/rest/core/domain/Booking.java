@@ -15,11 +15,9 @@ import java.time.LocalDate;
 @Setter
 public class Booking extends BaseEntity {
 
-    private Room room;
+    private LocalDate checkInDate;
 
-    private LocalDate from;
-
-    private LocalDate to;
+    private LocalDate checkOutDate;
 
     private Money price;
 
