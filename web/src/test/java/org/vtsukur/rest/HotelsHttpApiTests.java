@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -77,6 +77,24 @@ public final class HotelsHttpApiTests {
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
                 andExpect(jsonPath("$", isHotel(nobilis)));
+    }
+
+    @Test
+    public void deleteNotAllowed() throws Exception {
+        mockMvc.perform(delete("/api/hotels")).
+                andExpect(status().isMethodNotAllowed());
+    }
+
+    @Test
+    public void putNotAllowed() throws Exception {
+        mockMvc.perform(put("/api/hotels")).
+                andExpect(status().isMethodNotAllowed());
+    }
+
+    @Test
+    public void patchNotAllowed() throws Exception {
+        mockMvc.perform(patch("/api/hotels")).
+                andExpect(status().isMethodNotAllowed());
     }
 
     private static MapBasedHotelRepresentationMatcher isHotel(final Hotel hotel) {
