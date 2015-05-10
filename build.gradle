@@ -4,6 +4,7 @@ task wrapper(type: Wrapper) {
 
 ext {
   springBootVersion = "1.2.3.RELEASE"
+  junitVersion = "4.12"
 }
 
 allprojects {
