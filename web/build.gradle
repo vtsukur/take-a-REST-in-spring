@@ -2,9 +2,6 @@ apply plugin: "spring-boot"
 apply plugin: "io.spring.dependency-management"
 
 buildscript {
-  ext {
-    springBootVersion = "1.2.3.RELEASE"
-  }
   repositories {
     mavenCentral()
   }

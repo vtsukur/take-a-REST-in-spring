@@ -1,4 +1,5 @@
 dependencies {
-  compile('org.javamoney:moneta:0.9')
-  compile('org.projectlombok:lombok:1.16.4')
+  compile("org.springframework.boot:spring-boot-starter-data-jpa:${rootProject.springBootVersion}")
+  compile("org.javamoney:moneta:0.9")
+  compile("org.projectlombok:lombok:1.16.4")
 }
