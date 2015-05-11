@@ -34,7 +34,11 @@ public class Fixture {
     }
 
     private Hotel saveNobilis() {
-        nobilis = hotelRepository.save(new Hotel("Nobilis", new Rating(new BigDecimal(9.4), 246)));
+        nobilis = hotelRepository.save(
+                new Hotel(
+                        "Nobilis",
+                        new Rating(new BigDecimal(9.4), 246),
+                        new Address("Ukraine", "Lviv", 79005, "O.Fredra Street 5")));
         addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard", Money.of(143, MonetaryCurrencies.getCurrency("USD")))));
         return nobilis;
     }
@@ -48,7 +52,11 @@ public class Fixture {
     }
 
     private Hotel saveLeopolis() {
-        leopolis = hotelRepository.save(new Hotel("Leopolis", new Rating(new BigDecimal(9.2), 125)));
+        leopolis = hotelRepository.save(
+                new Hotel(
+                        "Leopolis",
+                        new Rating(new BigDecimal(9.2), 125),
+                        new Address("Ukraine", "Lviv", 79008, "Teatralna Street 16")));
         return leopolis;
     }
 

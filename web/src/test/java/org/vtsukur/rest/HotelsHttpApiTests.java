@@ -125,6 +125,10 @@ public class HotelsHttpApiTests {
             return MapBasedHalRepresentations.propertyMatches(item, "name", reference.getName()) &&
                     MapBasedHalRepresentations.propertyMatches(item, "rating.feedbackCount", reference.getRating().getFeedbackCount()) &&
                     MapBasedHalRepresentations.propertyMatches(item, "rating.value", reference.getRating().getValue()) &&
+                    MapBasedHalRepresentations.propertyMatches(item, "address.country", reference.getAddress().getCountry()) &&
+                    MapBasedHalRepresentations.propertyMatches(item, "address.city", reference.getAddress().getCity()) &&
+                    MapBasedHalRepresentations.propertyMatches(item, "address.zip", reference.getAddress().getZip()) &&
+                    MapBasedHalRepresentations.propertyMatches(item, "address.line", reference.getAddress().getLine()) &&
                     MapBasedHalRepresentations.linkPresent(item, "rooms") &&
                     MapBasedHalRepresentations.selfLinkPresent(item);
         }

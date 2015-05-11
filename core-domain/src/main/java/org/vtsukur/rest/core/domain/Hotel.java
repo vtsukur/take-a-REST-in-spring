@@ -24,14 +24,18 @@ public class Hotel extends BaseEntity {
     @Embedded
     private Rating rating;
 
+    @Embedded
+    private Address address;
+
     @OneToMany(mappedBy = "hotel")
     private Set<Room> rooms = new HashSet<>();
 
     private Hotel() {}
 
-    public Hotel(final String name, final Rating rating) {
+    public Hotel(final String name, final Rating rating, final Address address) {
         this.name = name;
         this.rating = rating;
+        this.address = address;
     }
 
 }
