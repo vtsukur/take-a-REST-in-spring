@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.javamoney.moneta.Money;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 /**
@@ -22,13 +23,15 @@ public class Room extends BaseEntity {
 
     private String type;
 
+    @Lob
     private Money price;
 
     private Room() {}
 
-    public Room(final Hotel hotel, final String type) {
+    public Room(final Hotel hotel, final String type, final Money price) {
         this.hotel = hotel;
         this.type = type;
+        this.price = price;
     }
 
 }

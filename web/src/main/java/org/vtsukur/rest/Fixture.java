@@ -1,18 +1,20 @@
 package org.vtsukur.rest;
 
+import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.vtsukur.rest.core.domain.Hotel;
 import org.vtsukur.rest.core.domain.HotelRepository;
 import org.vtsukur.rest.core.domain.Room;
 import org.vtsukur.rest.core.domain.RoomRepository;
 
+import javax.money.MonetaryCurrencies;
 import java.util.Set;
 
 /**
  * @author volodymyr.tsukur
  */
-@Component
+@Configuration
 public class Fixture {
 
     @Autowired
@@ -35,7 +37,7 @@ public class Fixture {
 
     private Hotel saveNobilis() {
         nobilis = hotelRepository.save(new Hotel("Nobilis"));
-        addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard")));
+        addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard", Money.of(143, MonetaryCurrencies.getCurrency("USD")))));
         return nobilis;
     }
 

@@ -148,6 +148,7 @@ public class HotelsHttpApiTests {
         @Override
         protected boolean matchesSafely(final Map<String, ?> item) {
             return MapBasedHalRepresentations.propertyMatches(item, "type", reference.getType()) &&
+                    MapBasedHalRepresentations.propertyMatches(item, "price", JacksonMoneyModule.MoneyModule.format(reference.getPrice())) &&
                     MapBasedHalRepresentations.linkPresent(item, "hotel") &&
                     MapBasedHalRepresentations.selfLinkPresent(item);
         }
