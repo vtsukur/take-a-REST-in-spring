@@ -2,7 +2,6 @@ package org.vtsukur.rest.core.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +12,6 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 @Getter
-@ToString
 @EqualsAndHashCode
 public abstract class BaseEntity {
 
