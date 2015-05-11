@@ -7,6 +7,8 @@ import org.vtsukur.rest.core.domain.HotelRepository;
 import org.vtsukur.rest.core.domain.Room;
 import org.vtsukur.rest.core.domain.RoomRepository;
 
+import java.util.Set;
+
 /**
  * @author volodymyr.tsukur
  */
@@ -32,10 +34,17 @@ public class Fixture {
     }
 
     private Hotel saveNobilis() {
-        final Hotel target = hotelRepository.save(new Hotel("Nobilis"));
-        roomRepository.save(new Room(target, "Standard"));
-        nobilis = hotelRepository.findOne(target.getId());
-        return target;
+        nobilis = hotelRepository.save(new Hotel("Nobilis"));
+        addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard")));
+        return nobilis;
+    }
+
+    private static void addRoom(final Hotel hotel, final Room room) {
+        addRoom(hotel.getRooms(), room);
+    }
+
+    private static void addRoom(final Set<Room> rooms, final Room room) {
+        rooms.add(room);
     }
 
     private Hotel saveLeopolis() {
