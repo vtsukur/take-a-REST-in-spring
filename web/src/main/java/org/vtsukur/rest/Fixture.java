@@ -24,6 +24,7 @@ public class Fixture {
     private Hotel leopolis;
 
     public void init() {
+        roomRepository.deleteAll();
         hotelRepository.deleteAll();
 
         saveNobilis();
