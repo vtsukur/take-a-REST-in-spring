@@ -1,3 +1,5 @@
+ext.springWebVersion = "4.1.6.RELEASE"
+
 dependencies {
   /* API */
   compile("org.javamoney:moneta:0.9")
@@ -5,6 +7,8 @@ dependencies {
   /* Implementation */
   compile("org.springframework.boot:spring-boot-starter-data-jpa:${rootProject.springBootVersion}")
   compile("org.springframework.data:spring-data-rest-webmvc:2.3.0.RELEASE")
+  compile("org.springframework:spring-web:$springWebVersion")
+  compile("org.springframework:spring-webmvc:$springWebVersion")
   compile("org.hsqldb:hsqldb:2.3.2")
   compile("org.projectlombok:lombok:1.16.4")
 
