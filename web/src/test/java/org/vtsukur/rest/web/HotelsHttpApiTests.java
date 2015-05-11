@@ -1,4 +1,4 @@
-package org.vtsukur.rest;
+package org.vtsukur.rest.web;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -13,6 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.vtsukur.rest.Application;
 import org.vtsukur.rest.core.domain.Hotel;
 import org.vtsukur.rest.core.domain.HotelRepository;
 
