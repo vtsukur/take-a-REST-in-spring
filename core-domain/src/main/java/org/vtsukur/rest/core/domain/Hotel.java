@@ -21,6 +21,8 @@ public class Hotel extends BaseEntity {
 
     private String name;
 
+    private Integer likes;
+
     @Embedded
     private Rating rating;
 
@@ -32,8 +34,9 @@ public class Hotel extends BaseEntity {
 
     private Hotel() {}
 
-    public Hotel(final String name, final Rating rating, final Address address) {
+    public Hotel(final String name, final Integer likes, final Rating rating, final Address address) {
         this.name = name;
+        this.likes = likes;
         this.rating = rating;
         this.address = address;
     }

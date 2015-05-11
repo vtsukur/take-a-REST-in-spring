@@ -37,6 +37,7 @@ public class Fixture {
         nobilis = hotelRepository.save(
                 new Hotel(
                         "Nobilis",
+                        164,
                         new Rating(new BigDecimal(9.4), 246),
                         new Address("Ukraine", "Lviv", 79005, "O.Fredra Street 5")));
         addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard", Money.of(143, MonetaryCurrencies.getCurrency("USD")))));
@@ -55,6 +56,7 @@ public class Fixture {
         leopolis = hotelRepository.save(
                 new Hotel(
                         "Leopolis",
+                        81,
                         new Rating(new BigDecimal(9.2), 125),
                         new Address("Ukraine", "Lviv", 79008, "Teatralna Street 16")));
         return leopolis;
