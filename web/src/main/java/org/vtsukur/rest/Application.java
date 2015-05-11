@@ -1,4 +1,4 @@
-package org.vtsukur.rest.web;
+package org.vtsukur.rest;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
