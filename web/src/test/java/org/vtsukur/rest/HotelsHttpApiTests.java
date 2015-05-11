@@ -1,4 +1,4 @@
-package org.vtsukur.rest.web;
+package org.vtsukur.rest;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -13,11 +13,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.vtsukur.rest.Application;
 import org.vtsukur.rest.core.domain.Hotel;
-import org.vtsukur.rest.core.domain.HotelRepository;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
@@ -38,22 +35,13 @@ public final class HotelsHttpApiTests {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private HotelRepository hotelRepository;
-
-    private Hotel nobilis;
-
-    private Hotel leopolis;
+    private Fixture fixture;
 
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-        hotelRepository.deleteAll();
-
-        nobilis = new Hotel("Nobilis");
-        leopolis = new Hotel("Leopolis");
-
-        hotelRepository.save(Arrays.asList(nobilis, leopolis));
+        fixture.init();
     }
 
     @Test
@@ -64,8 +52,8 @@ public final class HotelsHttpApiTests {
                 andExpect(jsonPath("$._links.self.href", not(isEmptyOrNullString()))).
                 andExpect(jsonPath("$._links.self.templated", is(true))).
                 andExpect(jsonPath("$._embedded.hotels", hasSize(2))).
-                andExpect(jsonPath("$._embedded.hotels[0]", isHotel(nobilis))).
-                andExpect(jsonPath("$._embedded.hotels[1]", isHotel(leopolis))).
+                andExpect(jsonPath("$._embedded.hotels[0]", isHotel(fixture.getNobilis()))).
+                andExpect(jsonPath("$._embedded.hotels[1]", isHotel(fixture.getLeopolis()))).
                 andExpect(jsonPath("$.page.size", is(20))).
                 andExpect(jsonPath("$.page.totalElements", is(2))).
                 andExpect(jsonPath("$.page.totalPages", is(1))).
@@ -74,10 +62,10 @@ public final class HotelsHttpApiTests {
 
     @Test
     public void getHotel() throws Exception {
-        mockMvc.perform(get("/api/hotels/" + nobilis.getId())).
+        mockMvc.perform(get("/api/hotels/" + fixture.getNobilis().getId())).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
-                andExpect(jsonPath("$", isHotel(nobilis)));
+                andExpect(jsonPath("$", isHotel(fixture.getNobilis())));
     }
 
     @Test
@@ -115,20 +103,30 @@ public final class HotelsHttpApiTests {
 
         @Override
         protected boolean matchesSafely(final Map<String, ?> item) {
-            return nameMatches(item) && selfLinkPresent(item);
+            return nameMatches(item) &&
+                    roomsLinkPresent(item) &&
+                    selfLinkPresent(item);
         }
 
-        private boolean nameMatches(final Map<String, ?> item) {
-            return item.get("name").equals(reference.getName());
+        private boolean nameMatches(final Map<String, ?> source) {
+            return source.get("name").equals(reference.getName());
         }
 
-        private boolean selfLinkPresent(final Map<String, ?> item) {
+        private boolean roomsLinkPresent(final Map<String, ?> source) {
+            return linkPresent(source, "rooms");
+        }
+
+        private boolean selfLinkPresent(final Map<String, ?> source) {
+            return linkPresent(source, "self");
+        }
+
+        private static boolean linkPresent(final Map<String, ?> item, final String name) {
             final Map<?, ?> _links = subMap(item, "_links");
             if (_links == null) {
                 return false;
             }
 
-            final Map<?, ?> self = subMap(_links, "self");
+            final Map<?, ?> self = subMap(_links, name);
             if (self == null) {
                 return false;
             }
