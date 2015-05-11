@@ -5,9 +5,7 @@ import org.springframework.stereotype.Component;
 import org.vtsukur.rest.core.domain.Hotel;
 import org.vtsukur.rest.core.domain.HotelRepository;
 import org.vtsukur.rest.core.domain.Room;
-
-import java.util.Arrays;
-import java.util.HashSet;
+import org.vtsukur.rest.core.domain.RoomRepository;
 
 /**
  * @author volodymyr.tsukur
@@ -17,6 +15,9 @@ public class Fixture {
 
     @Autowired
     private HotelRepository hotelRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
 
     private Hotel nobilis;
 
@@ -30,10 +31,10 @@ public class Fixture {
     }
 
     private Hotel saveNobilis() {
-        nobilis = new Hotel("Nobilis");
-        nobilis.setRooms(new HashSet<>(Arrays.asList(new Room(nobilis, "Standard"))));
-        nobilis = hotelRepository.save(nobilis);
-        return nobilis;
+        final Hotel target = hotelRepository.save(new Hotel("Nobilis"));
+        roomRepository.save(new Room(target, "Standard"));
+        nobilis = hotelRepository.findOne(target.getId());
+        return target;
     }
 
     private Hotel saveLeopolis() {
