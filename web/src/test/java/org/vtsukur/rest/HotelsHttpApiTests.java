@@ -123,6 +123,7 @@ public class HotelsHttpApiTests {
         @Override
         protected boolean matchesSafely(final Map<String, ?> item) {
             return MapBasedHalRepresentations.propertyMatches(item, "name", reference.getName()) &&
+                    MapBasedHalRepresentations.propertyMatches(item, "rating.feedbackCount", reference.getRating().getFeedbackCount()) &&
                     MapBasedHalRepresentations.linkPresent(item, "rooms") &&
                     MapBasedHalRepresentations.selfLinkPresent(item);
         }

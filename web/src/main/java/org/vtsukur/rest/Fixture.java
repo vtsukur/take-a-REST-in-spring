@@ -3,12 +3,10 @@ package org.vtsukur.rest;
 import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.vtsukur.rest.core.domain.Hotel;
-import org.vtsukur.rest.core.domain.HotelRepository;
-import org.vtsukur.rest.core.domain.Room;
-import org.vtsukur.rest.core.domain.RoomRepository;
+import org.vtsukur.rest.core.domain.*;
 
 import javax.money.MonetaryCurrencies;
+import java.math.BigDecimal;
 import java.util.Set;
 
 /**
@@ -36,7 +34,7 @@ public class Fixture {
     }
 
     private Hotel saveNobilis() {
-        nobilis = hotelRepository.save(new Hotel("Nobilis"));
+        nobilis = hotelRepository.save(new Hotel("Nobilis", new Rating(new BigDecimal(9.4), 246)));
         addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard", Money.of(143, MonetaryCurrencies.getCurrency("USD")))));
         return nobilis;
     }
@@ -50,7 +48,7 @@ public class Fixture {
     }
 
     private Hotel saveLeopolis() {
-        leopolis = hotelRepository.save(new Hotel("Leopolis"));
+        leopolis = hotelRepository.save(new Hotel("Leopolis", new Rating(new BigDecimal(9.2), 125)));
         return leopolis;
     }
 
