@@ -4,6 +4,7 @@ import lombok.*;
 import org.javamoney.moneta.Money;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import java.time.LocalDate;
 
 /**
@@ -17,10 +18,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Booking extends BaseEntity {
 
+    @Lob
     private LocalDate checkInDate;
 
+    @Lob
     private LocalDate checkOutDate;
 
+    @Lob
     private Money price;
 
 }
