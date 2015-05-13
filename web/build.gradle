@@ -22,6 +22,8 @@ dependencies {
   compile("org.springframework.boot:spring-boot-starter-hateoas")
   compile("org.springframework.boot:spring-boot-starter-web")
 
+  compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
   runtime("org.hsqldb:hsqldb")
 
   testCompile("org.springframework.boot:spring-boot-starter-test")
