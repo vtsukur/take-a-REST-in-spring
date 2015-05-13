@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.ValueInstantiator;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import org.javamoney.moneta.Money;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +21,16 @@ import java.util.Locale;
  * @author volodymyr.tsukur
  */
 @Configuration
-public class JacksonMoneyModule {
+public class JacksonModulesConfiguration {
 
     @Bean
     public Module newMoneyModule() {
         return new MoneyModule();
+    }
+
+    @Bean
+    public Module newJSR310Module() {
+        return new JSR310Module();
     }
 
     /**
