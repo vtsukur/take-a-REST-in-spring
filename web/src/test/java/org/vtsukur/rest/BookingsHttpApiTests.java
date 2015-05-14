@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -19,6 +20,7 @@ import org.vtsukur.rest.core.domain.Booking;
 import javax.money.MonetaryCurrencies;
 import java.time.LocalDate;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -54,7 +56,8 @@ public class BookingsHttpApiTests {
                 .post("/api/bookings")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(header().string(HttpHeaders.LOCATION, "http://localhost/api/bookings/1"));
     }
 
 }
