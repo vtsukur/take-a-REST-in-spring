@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author volodymyr.tsukur
- */
+* @author volodymyr.tsukur
+*/
 @RestController("/crud/bookings")
 public class BookingCrudController {
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     public String helloWorld() {
         return "Hello World!";
     }
