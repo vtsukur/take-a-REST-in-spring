@@ -19,14 +19,14 @@ public class BookingsCrudController {
     private BookingRepository bookingRepository;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<Booking> getBookings(
+    public Page<Booking> getPage(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "25") int size) {
         return bookingRepository.findAll(new PageRequest(page, size));
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Booking getBooking(@PathVariable Long id) {
+    public Booking getOne(@PathVariable Long id) {
         return bookingRepository.findOne(id);
     }
 
