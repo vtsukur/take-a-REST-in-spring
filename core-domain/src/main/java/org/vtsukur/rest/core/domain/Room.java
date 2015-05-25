@@ -1,5 +1,6 @@
 package org.vtsukur.rest.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,6 +20,7 @@ import javax.persistence.ManyToOne;
 public class Room extends BaseEntity {
 
     @ManyToOne
+    @JsonIgnore
     private Hotel hotel;
 
     private String type;
