@@ -18,6 +18,11 @@ public class BookingsCrudController {
     @Autowired
     private BookingRepository bookingRepository;
 
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Booking post(@RequestBody Booking booking) {
+        return bookingRepository.save(booking);
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<Booking> getPage(
             @RequestParam(value = "page", defaultValue = "0") int page,
