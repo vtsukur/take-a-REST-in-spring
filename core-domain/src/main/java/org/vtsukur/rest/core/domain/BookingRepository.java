@@ -7,4 +7,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  * @author volodymyr.tsukur
  */
 @RepositoryRestResource
-public interface BookingRepository extends PagingAndSortingRepository<Booking, Long> {}
+public interface BookingRepository extends PagingAndSortingRepository<Booking, Long> {
+
+    Booking findFirstByOrderByIdDesc();
+
+}
