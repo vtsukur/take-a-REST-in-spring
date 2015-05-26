@@ -25,7 +25,25 @@ public final class MapBasedHalRepresentations {
             ++depth;
         }
 
-        return level.get(keys[depth]).equals(expectedValue);
+        final Object value = level.get(keys[depth]);
+        return valueEquals(value, expectedValue);
+    }
+
+    private static boolean valueEquals(final Object lhs, final Object rhs) {
+        if (lhs == null || rhs == null) {
+            return lhs == rhs;
+        }
+
+        if (lhs == rhs) {
+            return true;
+        }
+
+        if (rhs instanceof Number && lhs instanceof Number) {
+            return ((Number) rhs).doubleValue() == ((Number) lhs).doubleValue();
+        }
+        else {
+            return rhs.equals(lhs);
+        }
     }
 
     public static boolean selfLinkPresent(final Map<String, ?> representation) {
