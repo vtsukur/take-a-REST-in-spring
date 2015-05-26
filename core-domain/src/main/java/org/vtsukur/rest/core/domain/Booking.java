@@ -20,10 +20,10 @@ import java.time.LocalDate;
 public class Booking extends BaseEntity {
 
     @Lob
-    private LocalDate checkInDate;
+    private LocalDate checkIn;
 
     @Lob
-    private LocalDate checkOutDate;
+    private LocalDate checkOut;
 
     @Lob
     private Money price;
@@ -31,9 +31,9 @@ public class Booking extends BaseEntity {
     @ManyToOne
     private Hotel hotel;
 
-    public Booking(LocalDate checkInDate, LocalDate checkOutDate, Hotel hotel) {
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
+    public Booking(LocalDate checkIn, LocalDate checkOut, Hotel hotel) {
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
         this.hotel = hotel;
     }
 
