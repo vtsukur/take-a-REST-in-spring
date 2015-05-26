@@ -5,6 +5,7 @@ import org.javamoney.moneta.Money;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 /**
@@ -26,5 +27,14 @@ public class Booking extends BaseEntity {
 
     @Lob
     private Money price;
+
+    @ManyToOne
+    private Hotel hotel;
+
+    public Booking(LocalDate checkInDate, LocalDate checkOutDate, Hotel hotel) {
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.hotel = hotel;
+    }
 
 }
