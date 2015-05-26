@@ -16,6 +16,9 @@ import java.util.Set;
 public class Fixture {
 
     @Autowired
+    private BookingRepository bookingRepository;
+
+    @Autowired
     private HotelRepository hotelRepository;
 
     @Autowired
@@ -26,6 +29,7 @@ public class Fixture {
     private Hotel leopolis;
 
     public void init() {
+        bookingRepository.deleteAll();
         roomRepository.deleteAll();
         hotelRepository.deleteAll();
 
