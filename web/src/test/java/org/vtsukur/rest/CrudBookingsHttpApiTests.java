@@ -13,14 +13,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
 import org.vtsukur.rest.crud.BookingCreationRequest;
 
 import java.time.LocalDate;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.vtsukur.rest.MapBasedBookingRepresentationMatcher.isBooking;
 
 /**
 * @author volodymyr.tsukur
@@ -28,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@Transactional
 public class CrudBookingsHttpApiTests {
 
     private MockMvc mockMvc;
@@ -37,6 +40,9 @@ public class CrudBookingsHttpApiTests {
 
     @Autowired
     private ObjectMapper jsonSerializer;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @Autowired
     private Fixture fixture;
@@ -65,7 +71,8 @@ public class CrudBookingsHttpApiTests {
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(header().string(HttpHeaders.LOCATION, "http://localhost/crud/bookings/1"));
+                .andExpect(header().string(HttpHeaders.LOCATION, "http://localhost/crud/bookings/1"))
+                .andExpect(jsonPath("$", isBooking(bookingRepository.findFirstByOrderByIdDesc())));
     }
 
 }
