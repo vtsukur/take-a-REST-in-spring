@@ -47,26 +47,32 @@ public class BookingsCrudHttpApiTests {
     @Autowired
     private BookingRepository bookingRepository;
 
+    private Booking referenceBooking;
+
     @Autowired
     private Fixture fixture;
-
-    private Hotel oneOfTheHotels;
 
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
         fixture.init();
-        oneOfTheHotels = fixture.getNobilis();
+        Hotel oneOfTheHotels = fixture.getNobilis();
+
+        referenceBooking = new Booking(
+                LocalDate.of(2015, 9, 1),
+                LocalDate.of(2015, 9, 10),
+                oneOfTheHotels
+        );
     }
 
     @Test
     public void postBooking() throws Exception {
         final String content = jsonSerializer.writeValueAsString(
                 new BookingSaveRequest(
-                        LocalDate.of(2015, 9, 1),
-                        LocalDate.of(2015, 9, 10),
-                        oneOfTheHotels.getId())
+                        referenceBooking.getCheckIn(),
+                        referenceBooking.getCheckOut(),
+                        referenceBooking.getHotel().getId())
         );
         final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .post("/crud/bookings")
@@ -82,26 +88,21 @@ public class BookingsCrudHttpApiTests {
 
     @Test
     public void patchBooking() throws Exception {
-        final Booking booking = new Booking(
-                LocalDate.of(2015, 9, 1),
-                LocalDate.of(2015, 9, 10),
-                oneOfTheHotels
-        );
-        bookingRepository.save(booking);
+        bookingRepository.save(referenceBooking);
 
         final String content = jsonSerializer.writeValueAsString(
                 new BookingSaveRequest(
                         LocalDate.of(2015, 9, 11),
                         LocalDate.of(2015, 9, 20),
-                        oneOfTheHotels.getId())
+                        referenceBooking.getHotel().getId())
         );
         mockMvc.perform(MockMvcRequestBuilders
-                .patch("/crud/bookings/" + booking.getId())
+                .patch("/crud/bookings/" + referenceBooking.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
                 .contentType(RestMediaTypes.MERGE_PATCH_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", isBooking(booking)));
+                .andExpect(jsonPath("$", isBooking(referenceBooking)));
     }
 
 }
