@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static org.vtsukur.rest.MapBasedRepresentations.propertyMatches;
+
 /**
  * @author volodymyr.tsukur
  */
@@ -22,9 +24,9 @@ public final class MapBasedBookingRepresentationMatcher extends TypeSafeMatcher<
 
     @Override
     protected boolean matchesSafely(final Map<String, ?> item) {
-        return MapBasedHalRepresentations.propertyMatches(item, "id", reference.getId()) &&
-                MapBasedHalRepresentations.propertyMatches(item, "checkIn", fromLocalDate(reference.getCheckIn())) &&
-                MapBasedHalRepresentations.propertyMatches(item, "checkOut", fromLocalDate(reference.getCheckOut()));
+        return propertyMatches(item, "id", reference.getId()) &&
+                propertyMatches(item, "checkIn", fromLocalDate(reference.getCheckIn())) &&
+                propertyMatches(item, "checkOut", fromLocalDate(reference.getCheckOut()));
     }
 
     private static List<Object> fromLocalDate(final LocalDate localDate) {

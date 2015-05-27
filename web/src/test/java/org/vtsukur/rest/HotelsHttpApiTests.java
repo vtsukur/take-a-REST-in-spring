@@ -22,6 +22,9 @@ import java.util.Map;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.vtsukur.rest.MapBasedHalRepresentations.linkPresent;
+import static org.vtsukur.rest.MapBasedHalRepresentations.selfLinkPresent;
+import static org.vtsukur.rest.MapBasedRepresentations.propertyMatches;
 
 /**
  * @author volodymyr.tsukur
@@ -122,17 +125,17 @@ public class HotelsHttpApiTests {
 
         @Override
         protected boolean matchesSafely(final Map<String, ?> item) {
-            return MapBasedHalRepresentations.propertyMatches(item, "name", reference.getName()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "propertyType", reference.getPropertyType().toString()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "likes", reference.getLikes()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "rating.feedbackCount", reference.getRating().getFeedbackCount()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "rating.value", reference.getRating().getValue()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "address.country", reference.getAddress().getCountry()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "address.city", reference.getAddress().getCity()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "address.zip", reference.getAddress().getZip()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "address.line", reference.getAddress().getLine()) &&
-                    MapBasedHalRepresentations.linkPresent(item, "rooms") &&
-                    MapBasedHalRepresentations.selfLinkPresent(item);
+            return propertyMatches(item, "name", reference.getName()) &&
+                    propertyMatches(item, "propertyType", reference.getPropertyType().toString()) &&
+                    propertyMatches(item, "likes", reference.getLikes()) &&
+                    propertyMatches(item, "rating.feedbackCount", reference.getRating().getFeedbackCount()) &&
+                    propertyMatches(item, "rating.value", reference.getRating().getValue()) &&
+                    propertyMatches(item, "address.country", reference.getAddress().getCountry()) &&
+                    propertyMatches(item, "address.city", reference.getAddress().getCity()) &&
+                    propertyMatches(item, "address.zip", reference.getAddress().getZip()) &&
+                    propertyMatches(item, "address.line", reference.getAddress().getLine()) &&
+                    linkPresent(item, "rooms") &&
+                    selfLinkPresent(item);
         }
 
         @Override
@@ -155,10 +158,10 @@ public class HotelsHttpApiTests {
 
         @Override
         protected boolean matchesSafely(final Map<String, ?> item) {
-            return MapBasedHalRepresentations.propertyMatches(item, "type", reference.getType()) &&
-                    MapBasedHalRepresentations.propertyMatches(item, "price", JacksonModulesConfiguration.MoneyModule.format(reference.getPrice())) &&
-                    MapBasedHalRepresentations.linkPresent(item, "hotel") &&
-                    MapBasedHalRepresentations.selfLinkPresent(item);
+            return propertyMatches(item, "type", reference.getType()) &&
+                    propertyMatches(item, "price", JacksonModulesConfiguration.MoneyModule.format(reference.getPrice())) &&
+                    linkPresent(item, "hotel") &&
+                    selfLinkPresent(item);
         }
 
         @Override
