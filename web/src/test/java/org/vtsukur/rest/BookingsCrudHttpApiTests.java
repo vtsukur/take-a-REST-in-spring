@@ -121,8 +121,7 @@ public class BookingsCrudHttpApiTests {
         bookingRepository.save(referenceBooking);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .delete("/crud/bookings/" + referenceBooking.getId())
-                .accept(MediaType.APPLICATION_JSON))
+                .delete("/crud/bookings/" + referenceBooking.getId()))
                 .andExpect(status().isNoContent());
     }
 
