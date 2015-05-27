@@ -60,4 +60,10 @@ public class BookingsCrudController {
         return bookingRepository.findOne(id);
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteOne(@PathVariable Long id) {
+        bookingRepository.delete(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
 }

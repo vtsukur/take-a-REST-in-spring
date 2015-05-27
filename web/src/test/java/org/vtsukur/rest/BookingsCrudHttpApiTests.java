@@ -116,4 +116,14 @@ public class BookingsCrudHttpApiTests {
                 .andExpect(jsonPath("$", isBooking(referenceBooking)));
     }
 
+    @Test
+    public void deleteBooking() throws Exception {
+        bookingRepository.save(referenceBooking);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/crud/bookings/" + referenceBooking.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
+
 }
