@@ -103,8 +103,8 @@ public class BookingsCrudHttpApiTests {
 
         final String content = jsonSerializer.writeValueAsString(
                 new BookingSaveRequest(
-                        LocalDate.of(2015, 9, 11),
-                        LocalDate.of(2015, 9, 20),
+                        referenceBooking.getCheckIn().plusDays(10),
+                        referenceBooking.getCheckOut().plusDays(10),
                         referenceBooking.getHotel().getId())
         );
         mockMvc.perform(MockMvcRequestBuilders
