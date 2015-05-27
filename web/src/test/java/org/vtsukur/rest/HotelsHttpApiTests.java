@@ -54,7 +54,7 @@ public class HotelsHttpApiTests {
     }
 
     @Test
-    public void getHotels() throws Exception {
+    public void getPage() throws Exception {
         mockMvc.perform(get("/api/hotels")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
@@ -70,7 +70,7 @@ public class HotelsHttpApiTests {
     }
 
     @Test
-    public void getHotel() throws Exception {
+    public void getOne() throws Exception {
         mockMvc.perform(get("/api/hotels/" + oneOfTheHotels.getId())).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
@@ -78,12 +78,18 @@ public class HotelsHttpApiTests {
     }
 
     @Test
-    public void getHotelRooms() throws Exception {
+    public void getRooms() throws Exception {
         mockMvc.perform(get("/api/hotels/" + oneOfTheHotels.getId() + "/rooms")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
                 andExpect(jsonPath("$._embedded.rooms", hasSize(oneOfTheHotels.getRooms().size()))).
                 andExpect(jsonPath("$._embedded.rooms[0]", isRoom(oneOfTheHotels.getRooms().iterator().next())));
+    }
+
+    @Test
+    public void postNotAllowed() throws Exception {
+        mockMvc.perform(post("/api/hotels")).
+                andExpect(status().isMethodNotAllowed());
     }
 
     @Test
