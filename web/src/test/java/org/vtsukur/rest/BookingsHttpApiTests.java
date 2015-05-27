@@ -50,23 +50,25 @@ public class BookingsHttpApiTests {
     @Autowired
     private BookingRepository bookingRepository;
 
-    private Hotel oneOfTheHotels;
+    private Booking referenceBooking;
 
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
         fixture.init();
-        oneOfTheHotels = fixture.getNobilis();
+        Hotel oneOfTheHotels = fixture.getNobilis();
+
+        referenceBooking = new Booking(
+                LocalDate.of(2015, 9, 1),
+                LocalDate.of(2015, 9, 10),
+                oneOfTheHotels
+        );
     }
 
     @Test
     public void postBooking() throws Exception {
-        final String content = "{" +
-                "\"checkIn\": [ 2015, 9, 1 ]," +
-                "\"checkOut\": [ 2015, 9, 10 ]," +
-                "\"hotel\": \"/api/hotels/" + oneOfTheHotels.getId() + "\"" +
-                "}";
+        final String content = saveRequestJsonString(referenceBooking);
         final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/bookings")
                 .accept(MediaTypes.HAL_JSON)
@@ -80,25 +82,33 @@ public class BookingsHttpApiTests {
 
     @Test
     public void patchBooking() throws Exception {
-        final Booking booking = new Booking(
-                LocalDate.of(2015, 9, 1),
-                LocalDate.of(2015, 9, 10),
-                oneOfTheHotels
-        );
-        bookingRepository.save(booking);
+        bookingRepository.save(referenceBooking);
 
-        final String content = "{" +
-                "\"checkIn\": [ 2015, 9, 11 ]," +
-                "\"checkOut\": [ 2015, 9, 20 ]," +
-                "\"hotel\": \"/api/hotels/" + oneOfTheHotels.getId() + "\"" +
-                "}";
+        final String content = saveRequestJsonString(
+                new Booking(
+                        referenceBooking.getCheckIn().plusDays(10),
+                        referenceBooking.getCheckOut().plusDays(10),
+                        referenceBooking.getHotel())
+        );
         mockMvc.perform(MockMvcRequestBuilders
-                .patch("/api/bookings/" + booking.getId())
+                .patch("/api/bookings/" + referenceBooking.getId())
                 .accept(MediaTypes.HAL_JSON)
                 .content(content)
                 .contentType(RestMediaTypes.MERGE_PATCH_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", isBooking(booking)));
+                .andExpect(jsonPath("$", isBooking(referenceBooking)));
+    }
+
+    private static String saveRequestJsonString(final Booking booking) {
+        return "{" +
+                "\"checkIn\": " + localDateToJsonArrayString(booking.getCheckIn()) + "," +
+                "\"checkOut\": " + localDateToJsonArrayString(booking.getCheckOut()) + "," +
+                "\"hotel\": \"/api/hotels/" + booking.getHotel().getId() + "\"" +
+                "}";
+    }
+
+    private static String localDateToJsonArrayString(final LocalDate date) {
+        return "[ " + date.getYear() + ", " + date.getMonthValue() + ", " + date.getDayOfMonth() + "]";
     }
 
 }
