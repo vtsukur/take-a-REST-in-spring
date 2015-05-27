@@ -44,6 +44,11 @@ public class BookingsCrudController {
         return bookingRepository.findAll(new PageRequest(page, size));
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Booking getOne(@PathVariable Long id) {
+        return bookingRepository.findOne(id);
+    }
+
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, consumes = "application/merge-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Booking> mergeOne(@PathVariable Long id, @RequestBody BookingSaveRequest request) {
         Booking booking = bookingRepository.findOne(id);
@@ -53,11 +58,6 @@ public class BookingsCrudController {
         booking.setHotel(hotel);
         Booking savedBooking = bookingRepository.save(booking);
         return new ResponseEntity<>(savedBooking, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Booking getOne(@PathVariable Long id) {
-        return bookingRepository.findOne(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

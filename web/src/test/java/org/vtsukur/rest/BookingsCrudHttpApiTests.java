@@ -67,7 +67,7 @@ public class BookingsCrudHttpApiTests {
     }
 
     @Test
-    public void postBooking() throws Exception {
+    public void post() throws Exception {
         final String content = jsonSerializer.writeValueAsString(
                 new BookingSaveRequest(
                         referenceBooking.getCheckIn(),
@@ -87,7 +87,7 @@ public class BookingsCrudHttpApiTests {
     }
 
     @Test
-    public void getBooking() throws Exception {
+    public void getOne() throws Exception {
         bookingRepository.save(referenceBooking);
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -98,7 +98,7 @@ public class BookingsCrudHttpApiTests {
     }
 
     @Test
-    public void patchBooking() throws Exception {
+    public void mergeOne() throws Exception {
         bookingRepository.save(referenceBooking);
 
         final String content = jsonSerializer.writeValueAsString(
@@ -117,7 +117,7 @@ public class BookingsCrudHttpApiTests {
     }
 
     @Test
-    public void deleteBooking() throws Exception {
+    public void deleteOne() throws Exception {
         bookingRepository.save(referenceBooking);
 
         mockMvc.perform(MockMvcRequestBuilders

@@ -67,7 +67,7 @@ public class BookingsHttpApiTests {
     }
 
     @Test
-    public void postBooking() throws Exception {
+    public void post() throws Exception {
         final String content = saveRequestJsonString(referenceBooking);
         final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/bookings")
@@ -81,7 +81,7 @@ public class BookingsHttpApiTests {
     }
 
     @Test
-    public void patchBooking() throws Exception {
+    public void mergeOne() throws Exception {
         bookingRepository.save(referenceBooking);
 
         final String content = saveRequestJsonString(
@@ -100,7 +100,7 @@ public class BookingsHttpApiTests {
     }
 
     @Test
-    public void deleteBooking() throws Exception {
+    public void deleteOne() throws Exception {
         bookingRepository.save(referenceBooking);
 
         mockMvc.perform(MockMvcRequestBuilders
