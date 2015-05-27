@@ -99,6 +99,15 @@ public class BookingsHttpApiTests {
                 .andExpect(jsonPath("$", isBooking(referenceBooking)));
     }
 
+    @Test
+    public void deleteBooking() throws Exception {
+        bookingRepository.save(referenceBooking);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/crud/bookings/" + referenceBooking.getId()))
+                .andExpect(status().isNoContent());
+    }
+
     private static String saveRequestJsonString(final Booking booking) {
         return "{" +
                 "\"checkIn\": " + localDateToJsonArrayString(booking.getCheckIn()) + "," +
