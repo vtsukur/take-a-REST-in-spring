@@ -13,7 +13,7 @@ import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
 import org.vtsukur.rest.core.domain.HotelRepository;
-import org.vtsukur.rest.crud.BookingCreationRequest;
+import org.vtsukur.rest.crud.BookingSaveRequest;
 
 /**
  * @author volodymyr.tsukur
@@ -29,12 +29,23 @@ public class BookingsCrudController {
     private HotelRepository hotelRepository;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Booking> post(@RequestBody BookingCreationRequest request) {
+    public ResponseEntity<Booking> post(@RequestBody BookingSaveRequest request) {
         Hotel hotel = hotelRepository.findOne(request.getHotelId());
         Booking savedBooking = bookingRepository.save(new Booking(request.getCheckIn(), request.getCheckOut(), hotel));
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(MvcUriComponentsBuilder.fromMethodName(BookingsCrudController.class, "getOne", savedBooking.getId()).build().toUri());
         return new ResponseEntity<>(savedBooking, headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PATCH, consumes = "application/merge-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Booking> merge(@PathVariable Long id, @RequestBody BookingSaveRequest request) {
+        Booking booking = bookingRepository.findOne(id);
+        Hotel hotel = hotelRepository.findOne(request.getHotelId());
+        booking.setCheckIn(request.getCheckIn());
+        booking.setCheckOut(request.getCheckOut());
+        booking.setHotel(hotel);
+        Booking savedBooking = bookingRepository.save(booking);
+        return new ResponseEntity<>(savedBooking, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

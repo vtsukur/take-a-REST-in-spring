@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingCreationRequest {
+public class BookingSaveRequest {
 
     private LocalDate checkIn;
 
