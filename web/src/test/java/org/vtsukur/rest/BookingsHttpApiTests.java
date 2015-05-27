@@ -23,8 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.vtsukur.rest.MapBasedBookingHalRepresentationMatcher.isBooking;
 
 /**
-* @author volodymyr.tsukur
-*/
+ * @author volodymyr.tsukur
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
