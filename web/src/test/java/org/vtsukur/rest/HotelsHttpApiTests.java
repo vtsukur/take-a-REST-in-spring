@@ -3,6 +3,7 @@ package org.vtsukur.rest;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,7 @@ public class HotelsHttpApiTests {
     }
 
     @Test
+    @Ignore
     public void postNotAllowed() throws Exception {
         mockMvc.perform(post("/api/hotels")).
                 andExpect(status().isMethodNotAllowed());
