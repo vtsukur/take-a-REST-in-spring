@@ -37,8 +37,15 @@ public class BookingsCrudController {
         return new ResponseEntity<>(savedBooking, headers, HttpStatus.CREATED);
     }
 
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Page<Booking> getPage(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "25") int size) {
+        return bookingRepository.findAll(new PageRequest(page, size));
+    }
+
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, consumes = "application/merge-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Booking> merge(@PathVariable Long id, @RequestBody BookingSaveRequest request) {
+    public ResponseEntity<Booking> mergeOne(@PathVariable Long id, @RequestBody BookingSaveRequest request) {
         Booking booking = bookingRepository.findOne(id);
         Hotel hotel = hotelRepository.findOne(request.getHotelId());
         booking.setCheckIn(request.getCheckIn());
@@ -46,13 +53,6 @@ public class BookingsCrudController {
         booking.setHotel(hotel);
         Booking savedBooking = bookingRepository.save(booking);
         return new ResponseEntity<>(savedBooking, HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<Booking> getPage(
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "25") int size) {
-        return bookingRepository.findAll(new PageRequest(page, size));
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
