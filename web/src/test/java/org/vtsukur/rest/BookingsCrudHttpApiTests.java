@@ -34,7 +34,7 @@ import static org.vtsukur.rest.MapBasedBookingRepresentationMatcher.isBooking;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @Transactional
-public class CrudBookingsHttpApiTests {
+public class BookingsCrudHttpApiTests {
 
     private MockMvc mockMvc;
 
