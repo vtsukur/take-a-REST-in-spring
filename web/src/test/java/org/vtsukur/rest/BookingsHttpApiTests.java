@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.rest.webmvc.RestMediaTypes;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,6 +21,8 @@ import org.springframework.web.context.WebApplicationContext;
 import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
+
+import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.vtsukur.rest.MapBasedBookingHalRepresentationMatcher.isBooking;
@@ -73,6 +76,29 @@ public class BookingsHttpApiTests {
         resultActions.andExpect(status().isCreated())
                 .andExpect(header().string(HttpHeaders.LOCATION, "http://localhost/api/bookings/" + createdBooking.getId()))
                 .andExpect(jsonPath("$", isBooking(createdBooking)));
+    }
+
+    @Test
+    public void patchBooking() throws Exception {
+        final Booking booking = new Booking(
+                LocalDate.of(2015, 9, 1),
+                LocalDate.of(2015, 9, 10),
+                oneOfTheHotels
+        );
+        bookingRepository.save(booking);
+
+        final String content = "{" +
+                "\"checkIn\": [ 2015, 9, 11 ]," +
+                "\"checkOut\": [ 2015, 9, 20 ]," +
+                "\"hotel\": \"/api/hotels/" + oneOfTheHotels.getId() + "\"" +
+                "}";
+        mockMvc.perform(MockMvcRequestBuilders
+                .patch("/api/bookings/" + booking.getId())
+                .accept(MediaTypes.HAL_JSON)
+                .content(content)
+                .contentType(RestMediaTypes.MERGE_PATCH_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", isBooking(booking)));
     }
 
 }
