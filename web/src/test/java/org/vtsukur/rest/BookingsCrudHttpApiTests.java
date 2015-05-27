@@ -87,6 +87,17 @@ public class BookingsCrudHttpApiTests {
     }
 
     @Test
+    public void getBooking() throws Exception {
+        bookingRepository.save(referenceBooking);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/crud/bookings/" + referenceBooking.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", isBooking(referenceBooking)));
+    }
+
+    @Test
     public void patchBooking() throws Exception {
         bookingRepository.save(referenceBooking);
 
