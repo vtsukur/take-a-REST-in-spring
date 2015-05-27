@@ -73,7 +73,6 @@ public class BookingsCrudHttpApiTests {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON));
-
         final Booking createdBooking = bookingRepository.findFirstByOrderByIdDesc();
         resultActions
                 .andExpect(status().isCreated())
@@ -96,13 +95,11 @@ public class BookingsCrudHttpApiTests {
                         LocalDate.of(2015, 9, 20),
                         oneOfTheHotels.getId())
         );
-        final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .patch("/crud/bookings/" + booking.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
-                .contentType(RestMediaTypes.MERGE_PATCH_JSON));
-
-        resultActions
+                .contentType(RestMediaTypes.MERGE_PATCH_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", isBooking(booking)));
     }
