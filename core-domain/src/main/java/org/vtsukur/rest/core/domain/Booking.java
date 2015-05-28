@@ -31,10 +31,25 @@ public class Booking extends BaseEntity {
     @ManyToOne
     private Hotel hotel;
 
+    private Status status;
+
     public Booking(LocalDate checkIn, LocalDate checkOut, Hotel hotel) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.hotel = hotel;
+        this.status = Status.CREATED;
+    }
+
+    public enum Status {
+
+        CREATED,
+
+        PAID,
+
+        CANCELLED,
+
+        SERVED
+
     }
 
 }
