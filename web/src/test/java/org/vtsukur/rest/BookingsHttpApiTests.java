@@ -112,6 +112,7 @@ public class BookingsHttpApiTests {
         return "{" +
                 "\"checkIn\": " + localDateToJsonArrayString(booking.getCheckIn()) + "," +
                 "\"checkOut\": " + localDateToJsonArrayString(booking.getCheckOut()) + "," +
+                "\"status\": \"CREATED\"," +
                 "\"hotel\": \"/api/hotels/" + booking.getHotel().getId() + "\"" +
                 "}";
     }

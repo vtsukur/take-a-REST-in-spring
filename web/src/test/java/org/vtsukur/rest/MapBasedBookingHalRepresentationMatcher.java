@@ -7,6 +7,7 @@ import org.vtsukur.rest.core.domain.Booking;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import static org.vtsukur.rest.MapBasedHalRepresentations.linkPresent;
 import static org.vtsukur.rest.MapBasedRepresentations.propertyMatches;
 
 /**
@@ -23,7 +24,8 @@ public final class MapBasedBookingHalRepresentationMatcher extends TypeSafeMatch
     @Override
     protected boolean matchesSafely(final Map<String, ?> item) {
         return propertyMatches(item, "checkIn", reference.getCheckIn().format(DateTimeFormatter.ISO_DATE)) &&
-                propertyMatches(item, "checkOut", reference.getCheckOut().format(DateTimeFormatter.ISO_DATE));
+                propertyMatches(item, "checkOut", reference.getCheckOut().format(DateTimeFormatter.ISO_DATE)) &&
+                linkPresent(item, "payment");
     }
 
     @Override
