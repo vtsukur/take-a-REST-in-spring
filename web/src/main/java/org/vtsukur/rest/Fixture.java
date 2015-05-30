@@ -38,14 +38,14 @@ public class Fixture {
     }
 
     private Hotel saveNobilis() {
-        nobilis = hotelRepository.save(
-                new Hotel(
-                        "Nobilis",
-                        Hotel.PropertyType.HOTEL,
-                        164,
-                        new Rating(new BigDecimal(9.4), 246),
-                        new Address("Ukraine", "Lviv", 79005, "O.Fredra Street 5")));
-        addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard", Money.of(143, Currencies.USD))));
+        nobilis = new Hotel(
+                "Nobilis",
+                Hotel.PropertyType.HOTEL,
+                164,
+                new Rating(new BigDecimal(9.4), 246),
+                new Address("Ukraine", "Lviv", 79005, "O.Fredra Street 5"));
+        addRoom(nobilis, roomRepository.save(new Room("Standard", Money.of(143, Currencies.USD))));
+        nobilis = hotelRepository.save(nobilis);
         return nobilis;
     }
 

@@ -142,7 +142,6 @@ public class HotelsHttpApiTests {
         protected boolean matchesSafely(final Map<String, ?> item) {
             return propertyMatches(item, "type", reference.getType()) &&
                     propertyMatches(item, "price", JacksonModulesConfiguration.MoneyModule.format(reference.getPrice())) &&
-                    linkPresent(item, "hotel") &&
                     selfLinkPresent(item);
         }
 

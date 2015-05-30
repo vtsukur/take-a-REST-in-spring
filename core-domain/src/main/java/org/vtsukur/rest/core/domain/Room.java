@@ -1,12 +1,13 @@
 package org.vtsukur.rest.core.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.javamoney.moneta.Money;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 
 /**
  * @author volodymyr.tsukur
@@ -14,14 +15,9 @@ import javax.persistence.ManyToOne;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = "hotel")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room extends BaseEntity {
-
-    @ManyToOne
-    @JsonIgnore
-    private Hotel hotel;
 
     private String type;
 

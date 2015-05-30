@@ -31,7 +31,7 @@ public class Hotel extends BaseEntity {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "hotel")
+    @OneToMany
     private final Set<Room> rooms = new HashSet<>();
 
     public enum PropertyType {
