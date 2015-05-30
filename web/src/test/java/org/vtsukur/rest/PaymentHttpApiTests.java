@@ -58,7 +58,7 @@ public class PaymentHttpApiTests {
                 LocalDate.of(2015, 9, 1),
                 LocalDate.of(2015, 9, 10),
                 null,
-                oneOfTheHotels,
+                oneOfTheHotels.getRooms().iterator().next(),
                 Booking.Status.CREATED
         );
     }

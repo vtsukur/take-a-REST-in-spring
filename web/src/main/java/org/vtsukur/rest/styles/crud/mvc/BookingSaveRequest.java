@@ -20,6 +20,6 @@ public class BookingSaveRequest {
 
     private LocalDate checkOut;
 
-    private Long hotelId;
+    private Long roomId;
 
 }

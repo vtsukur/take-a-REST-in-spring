@@ -9,10 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.vtsukur.rest.core.domain.Booking;
-import org.vtsukur.rest.core.domain.BookingRepository;
-import org.vtsukur.rest.core.domain.Hotel;
-import org.vtsukur.rest.core.domain.HotelRepository;
+import org.vtsukur.rest.core.domain.*;
 
 /**
  * @author volodymyr.tsukur
@@ -25,16 +22,16 @@ public class BookingsCrudController {
     private BookingRepository bookingRepository;
 
     @Autowired
-    private HotelRepository hotelRepository;
+    private RoomRepository roomRepository;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Booking> post(@RequestBody BookingSaveRequest request) {
-        Hotel hotel = hotelRepository.findOne(request.getHotelId());
+        Room room = roomRepository.findOne(request.getRoomId());
         Booking savedBooking = bookingRepository.save(new Booking(
                 request.getCheckIn(),
                 request.getCheckOut(),
                 null,
-                hotel,
+                room,
                 Booking.Status.CREATED));
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(MvcUriComponentsBuilder.fromMethodName(BookingsCrudController.class, "getOne", savedBooking.getId()).build().toUri());
@@ -56,10 +53,10 @@ public class BookingsCrudController {
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, consumes = "application/merge-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Booking> mergeOne(@PathVariable Long id, @RequestBody BookingSaveRequest request) {
         Booking booking = bookingRepository.findOne(id);
-        Hotel hotel = hotelRepository.findOne(request.getHotelId());
+        Room room = roomRepository.findOne(request.getRoomId());
         booking.setCheckIn(request.getCheckIn());
         booking.setCheckOut(request.getCheckOut());
-        booking.setHotel(hotel);
+        booking.setRoom(room);
         Booking savedBooking = bookingRepository.save(booking);
         return new ResponseEntity<>(savedBooking, HttpStatus.OK);
     }

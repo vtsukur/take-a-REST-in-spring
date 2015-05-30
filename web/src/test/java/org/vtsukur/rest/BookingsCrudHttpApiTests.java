@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
+import org.vtsukur.rest.core.domain.Room;
 import org.vtsukur.rest.styles.crud.mvc.BookingSaveRequest;
 
 import java.time.LocalDate;
@@ -43,15 +44,17 @@ public class BookingsCrudHttpApiTests {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
+    private Fixture fixture;
+
+    @Autowired
     private ObjectMapper jsonSerializer;
 
     @Autowired
     private BookingRepository bookingRepository;
 
-    private Booking referenceBooking;
+    private Room referenceRoom;
 
-    @Autowired
-    private Fixture fixture;
+    private Booking referenceBooking;
 
     @Before
     public void setup() {
@@ -60,11 +63,12 @@ public class BookingsCrudHttpApiTests {
         fixture.init();
         Hotel oneOfTheHotels = fixture.getNobilis();
 
+        referenceRoom = oneOfTheHotels.getRooms().iterator().next();
         referenceBooking = new Booking(
                 LocalDate.of(2015, 9, 1),
                 LocalDate.of(2015, 9, 10),
                 null,
-                oneOfTheHotels,
+                referenceRoom,
                 Booking.Status.CREATED
         );
     }
@@ -75,7 +79,7 @@ public class BookingsCrudHttpApiTests {
                 new BookingSaveRequest(
                         referenceBooking.getCheckIn(),
                         referenceBooking.getCheckOut(),
-                        referenceBooking.getHotel().getId())
+                        referenceBooking.getRoom().getId())
         );
         final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .post("/crud/bookings")
@@ -108,7 +112,7 @@ public class BookingsCrudHttpApiTests {
                 new BookingSaveRequest(
                         referenceBooking.getCheckIn().plusDays(10),
                         referenceBooking.getCheckOut().plusDays(10),
-                        referenceBooking.getHotel().getId())
+                        referenceBooking.getRoom().getId())
         );
         mockMvc.perform(MockMvcRequestBuilders
                 .patch("/crud/bookings/" + referenceBooking.getId())

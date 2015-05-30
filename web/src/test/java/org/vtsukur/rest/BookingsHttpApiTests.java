@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
+import org.vtsukur.rest.core.domain.Room;
 
 import java.time.LocalDate;
 
@@ -47,6 +48,8 @@ public class BookingsHttpApiTests {
     @Autowired
     private BookingRepository bookingRepository;
 
+    private Room referenceRoom;
+
     private Booking referenceBooking;
 
     @Before
@@ -56,11 +59,12 @@ public class BookingsHttpApiTests {
         fixture.init();
         Hotel oneOfTheHotels = fixture.getNobilis();
 
+        referenceRoom = oneOfTheHotels.getRooms().iterator().next();
         referenceBooking = new Booking(
                 LocalDate.of(2015, 9, 1),
                 LocalDate.of(2015, 9, 10),
                 null,
-                oneOfTheHotels,
+                referenceRoom,
                 Booking.Status.CREATED
         );
     }
@@ -88,7 +92,7 @@ public class BookingsHttpApiTests {
                         referenceBooking.getCheckIn().plusDays(10),
                         referenceBooking.getCheckOut().plusDays(10),
                         null,
-                        referenceBooking.getHotel(),
+                        referenceBooking.getRoom(),
                         Booking.Status.CREATED)
         );
         mockMvc.perform(MockMvcRequestBuilders
@@ -114,7 +118,7 @@ public class BookingsHttpApiTests {
                 "\"checkIn\": " + localDateToJsonArrayString(booking.getCheckIn()) + "," +
                 "\"checkOut\": " + localDateToJsonArrayString(booking.getCheckOut()) + "," +
                 "\"status\": \"CREATED\"," +
-                "\"hotel\": \"/api/hotels/" + booking.getHotel().getId() + "\"" +
+                "\"room\": \"/api/rooms/" + booking.getRoom().getId() + "\"" +
                 "}";
     }
 

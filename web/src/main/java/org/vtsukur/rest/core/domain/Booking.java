@@ -29,7 +29,7 @@ public class Booking extends BaseEntity {
     private Money price;
 
     @ManyToOne
-    private Hotel hotel;
+    private Room room;
 
     private Status status;
 
