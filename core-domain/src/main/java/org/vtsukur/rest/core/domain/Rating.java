@@ -8,11 +8,8 @@ import java.math.BigDecimal;
 /**
  * @author volodymyr.tsukur
  */
+@Data
 @Embeddable
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Rating {

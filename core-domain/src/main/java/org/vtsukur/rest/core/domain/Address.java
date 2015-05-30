@@ -2,13 +2,13 @@ package org.vtsukur.rest.core.domain;
 
 import lombok.*;
 
+import javax.persistence.Embeddable;
+
 /**
  * @author volodymyr.tsukur
  */
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Data
+@Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
