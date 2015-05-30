@@ -21,13 +21,8 @@ public class Hotel extends BaseEntity {
 
     private String name;
 
-    private Integer likes;
-
     @Embedded
     private Rating rating;
-
-    @Embedded
-    private Address address;
 
     @OneToMany
     private final Set<Room> rooms = new HashSet<>();
