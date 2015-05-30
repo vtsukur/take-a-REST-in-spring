@@ -63,9 +63,9 @@ public class HotelsHttpApiTests {
                 andExpect(jsonPath("$._embedded.hotels", hasSize(2))).
                 andExpect(jsonPath("$._embedded.hotels[0]", isHotel(oneOfTheHotels))).
                 andExpect(jsonPath("$._embedded.hotels[1]", isHotel(fixture.getLeopolis()))).
-                andExpect(jsonPath("$.page.size", is(20))).
-                andExpect(jsonPath("$.page.totalElements", is(2))).
-                andExpect(jsonPath("$.page.totalPages", is(1))).
+                andExpect(jsonPath("$.page.size", is(2))).
+                andExpect(jsonPath("$.page.totalElements", is(3))).
+                andExpect(jsonPath("$.page.totalPages", is(2))).
                 andExpect(jsonPath("$.page.number", is(0)));
     }
 

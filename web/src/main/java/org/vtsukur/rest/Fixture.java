@@ -35,6 +35,7 @@ public class Fixture {
 
         saveNobilis();
         saveLeopolis();
+        saveNotaBene();
     }
 
     private Hotel saveNobilis() {
@@ -66,6 +67,21 @@ public class Fixture {
                         new Rating(new BigDecimal(9.2), 125),
                         new Address("Ukraine", "Lviv", 79008, "Teatralna Street 16")));
         return leopolis;
+    }
+
+    private void saveNotaBene() {
+        Hotel notaBene = new Hotel(
+                "Nota Bene",
+                Hotel.PropertyType.HOTEL,
+                343,
+                new Rating(new BigDecimal(9.0), 537),
+                new Address("Ukraine", "Lviv", 79015, "Polischuka Street 78A"));
+        addRoom(notaBene, roomRepository.save(new Room("Standard Double Room", Money.of(34, Currencies.USD))));
+        addRoom(notaBene, roomRepository.save(new Room("Business Double or Twin Room", Money.of(42, Currencies.USD))));
+        addRoom(notaBene, roomRepository.save(new Room("Junior Suite", Money.of(47, Currencies.USD))));
+        addRoom(notaBene, roomRepository.save(new Room("Suite", Money.of(55, Currencies.USD))));
+        addRoom(notaBene, roomRepository.save(new Room("Standard Single Room", Money.of(29, Currencies.USD))));
+        hotelRepository.save(notaBene);
     }
 
     public Hotel getNobilis() {
