@@ -7,6 +7,7 @@ import org.vtsukur.rest.core.domain.*;
 
 import javax.money.MonetaryCurrencies;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Set;
 
 /**
