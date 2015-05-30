@@ -1,6 +1,5 @@
 package org.vtsukur.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,9 +40,6 @@ public class PaymentHttpApiTests {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private ObjectMapper jsonSerializer;
-
-    @Autowired
     private Fixture fixture;
 
     @Autowired
@@ -61,7 +57,9 @@ public class PaymentHttpApiTests {
         referenceBooking = new Booking(
                 LocalDate.of(2015, 9, 1),
                 LocalDate.of(2015, 9, 10),
-                oneOfTheHotels
+                null,
+                oneOfTheHotels,
+                Booking.Status.CREATED
         );
     }
 

@@ -31,7 +31,12 @@ public class BookingsCrudController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Booking> post(@RequestBody BookingSaveRequest request) {
         Hotel hotel = hotelRepository.findOne(request.getHotelId());
-        Booking savedBooking = bookingRepository.save(new Booking(request.getCheckIn(), request.getCheckOut(), hotel));
+        Booking savedBooking = bookingRepository.save(new Booking(
+                request.getCheckIn(),
+                request.getCheckOut(),
+                null,
+                hotel,
+                Booking.Status.CREATED));
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(MvcUriComponentsBuilder.fromMethodName(BookingsCrudController.class, "getOne", savedBooking.getId()).build().toUri());
         return new ResponseEntity<>(savedBooking, headers, HttpStatus.CREATED);

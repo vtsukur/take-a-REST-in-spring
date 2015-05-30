@@ -4,10 +4,9 @@ import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.vtsukur.rest.core.domain.*;
+import org.vtsukur.rest.money.Currencies;
 
-import javax.money.MonetaryCurrencies;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -46,7 +45,7 @@ public class Fixture {
                         164,
                         new Rating(new BigDecimal(9.4), 246),
                         new Address("Ukraine", "Lviv", 79005, "O.Fredra Street 5")));
-        addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard", Money.of(143, MonetaryCurrencies.getCurrency("USD")))));
+        addRoom(nobilis, roomRepository.save(new Room(nobilis, "Standard", Money.of(143, Currencies.USD))));
         return nobilis;
     }
 

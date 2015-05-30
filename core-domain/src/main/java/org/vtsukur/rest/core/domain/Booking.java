@@ -35,13 +35,6 @@ public class Booking extends BaseEntity {
     @JsonIgnore
     private Status status;
 
-    public Booking(LocalDate checkIn, LocalDate checkOut, Hotel hotel) {
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.hotel = hotel;
-        this.status = Status.CREATED;
-    }
-
     public enum Status {
 
         CREATED,

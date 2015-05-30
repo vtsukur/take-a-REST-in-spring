@@ -62,7 +62,9 @@ public class BookingsHttpApiTests {
         referenceBooking = new Booking(
                 LocalDate.of(2015, 9, 1),
                 LocalDate.of(2015, 9, 10),
-                oneOfTheHotels
+                null,
+                oneOfTheHotels,
+                Booking.Status.CREATED
         );
     }
 
@@ -88,7 +90,9 @@ public class BookingsHttpApiTests {
                 new Booking(
                         referenceBooking.getCheckIn().plusDays(10),
                         referenceBooking.getCheckOut().plusDays(10),
-                        referenceBooking.getHotel())
+                        null,
+                        referenceBooking.getHotel(),
+                        Booking.Status.CREATED)
         );
         mockMvc.perform(MockMvcRequestBuilders
                 .patch("/api/bookings/" + referenceBooking.getId())

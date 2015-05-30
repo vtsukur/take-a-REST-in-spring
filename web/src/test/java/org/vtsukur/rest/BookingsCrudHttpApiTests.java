@@ -62,7 +62,9 @@ public class BookingsCrudHttpApiTests {
         referenceBooking = new Booking(
                 LocalDate.of(2015, 9, 1),
                 LocalDate.of(2015, 9, 10),
-                oneOfTheHotels
+                null,
+                oneOfTheHotels,
+                Booking.Status.CREATED
         );
     }
 
