@@ -1,6 +1,7 @@
 package org.vtsukur.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.javamoney.moneta.Money;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,7 @@ import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
 import org.vtsukur.rest.core.domain.Room;
+import org.vtsukur.rest.etc.money.Currencies;
 import org.vtsukur.rest.styles.crud.mvc.BookingSaveRequest;
 
 import java.time.LocalDate;
@@ -67,7 +69,7 @@ public class BookingsCrudHttpApiTests {
         referenceBooking = new Booking(
                 LocalDate.of(2015, 9, 1),
                 LocalDate.of(2015, 9, 10),
-                null,
+                Money.of(500, Currencies.USD),
                 referenceRoom,
                 Booking.Status.CREATED
         );

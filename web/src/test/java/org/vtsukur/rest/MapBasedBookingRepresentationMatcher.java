@@ -24,10 +24,11 @@ public final class MapBasedBookingRepresentationMatcher extends TypeSafeMatcher<
 
     @Override
     protected boolean matchesSafely(final Map<String, ?> item) {
-        return propertyMatches(item, "id", reference.getId()) &&
-                propertyMatches(item, "checkIn", fromLocalDate(reference.getCheckIn())) &&
-                propertyMatches(item, "checkOut", fromLocalDate(reference.getCheckOut())) &&
-                propertyMatches(item, "status", reference.getStatus().name());
+        return propertyMatches(item, "id", reference.getId())
+                && propertyMatches(item, "checkIn", fromLocalDate(reference.getCheckIn()))
+                && propertyMatches(item, "checkOut", fromLocalDate(reference.getCheckOut()))
+                && propertyMatches(item, "status", reference.getStatus().name())
+                && propertyMatches(item, "price", JacksonModulesConfiguration.MoneyModule.format(reference.getPrice()));
     }
 
     private static List<Object> fromLocalDate(final LocalDate localDate) {

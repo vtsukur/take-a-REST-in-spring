@@ -1,5 +1,6 @@
 package org.vtsukur.rest.styles.crud.mvc;
 
+import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +10,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.vtsukur.rest.core.domain.*;
+import org.vtsukur.rest.core.domain.Booking;
+import org.vtsukur.rest.core.domain.BookingRepository;
+import org.vtsukur.rest.core.domain.Room;
+import org.vtsukur.rest.core.domain.RoomRepository;
+import org.vtsukur.rest.etc.money.Currencies;
+
+import java.time.Period;
 
 /**
  * @author volodymyr.tsukur
@@ -30,7 +37,8 @@ public class BookingsCrudController {
         Booking savedBooking = bookingRepository.save(new Booking(
                 request.getCheckIn(),
                 request.getCheckOut(),
-                null,
+                Money.of(Period.between(request.getCheckIn(), request.getCheckOut()).getDays(), Currencies.USD).
+                        multiply(room.getPrice().getNumber()),
                 room,
                 Booking.Status.CREATED));
         HttpHeaders headers = new HttpHeaders();

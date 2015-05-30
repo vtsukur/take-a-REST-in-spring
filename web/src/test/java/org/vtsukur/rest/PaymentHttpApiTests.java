@@ -1,5 +1,6 @@
 package org.vtsukur.rest;
 
+import org.javamoney.moneta.Money;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
+import org.vtsukur.rest.etc.money.Currencies;
 
 import java.time.LocalDate;
 
@@ -57,7 +59,7 @@ public class PaymentHttpApiTests {
         referenceBooking = new Booking(
                 LocalDate.of(2015, 9, 1),
                 LocalDate.of(2015, 9, 10),
-                null,
+                Money.of(500, Currencies.USD),
                 oneOfTheHotels.getRooms().iterator().next(),
                 Booking.Status.CREATED
         );
