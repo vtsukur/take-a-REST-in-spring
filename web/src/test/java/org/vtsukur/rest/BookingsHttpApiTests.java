@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.RestMediaTypes;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
@@ -72,7 +73,7 @@ public class BookingsHttpApiTests {
                 .accept(MediaTypes.HAL_JSON)
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON));
-        final Booking createdBooking = bookingRepository.findFirstByOrderByIdDesc();
+        final Booking createdBooking = bookingRepository.findAll(new Sort(Sort.Direction.DESC, "id")).iterator().next();
         resultActions.andExpect(status().isCreated())
                 .andExpect(header().string(HttpHeaders.LOCATION, "http://localhost/api/bookings/" + createdBooking.getId()))
                 .andExpect(jsonPath("$", isBooking(createdBooking)));
