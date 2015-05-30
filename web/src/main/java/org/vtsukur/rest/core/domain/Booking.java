@@ -2,12 +2,10 @@ package org.vtsukur.rest.core.domain;
 
 import lombok.*;
 import org.javamoney.moneta.Money;
+import org.vtsukur.rest.etc.jpa.MoneyConverter;
 import org.vtsukur.rest.etc.money.Currencies;
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -28,7 +26,7 @@ public class Booking extends BaseEntity {
     @Lob
     private LocalDate checkOut;
 
-    @Lob
+    @Convert(converter = MoneyConverter.class)
     private Money price;
 
     @ManyToOne
