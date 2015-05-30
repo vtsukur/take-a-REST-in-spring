@@ -2,11 +2,6 @@ task wrapper(type: Wrapper) {
   gradleVersion = "2.4"
 }
 
-ext {
-  springBootVersion = "1.2.3.RELEASE"
-  junitVersion = "4.12"
-}
-
 allprojects {
   apply plugin: "eclipse"
   apply plugin: "idea"

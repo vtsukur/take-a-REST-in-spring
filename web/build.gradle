@@ -1,12 +1,16 @@
 apply plugin: "spring-boot"
 apply plugin: "io.spring.dependency-management"
 
+ext {
+  springWebVersion = "4.1.6.RELEASE"
+}
+
 buildscript {
   repositories {
     mavenCentral()
   }
   dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
     classpath("io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE")
   }
 }
@@ -16,16 +20,20 @@ jar {
 }
 
 dependencies {
-  compile(project(":core-domain"))
-
   compile("org.springframework.boot:spring-boot-starter-data-jpa")
+  compile("org.springframework.boot:spring-boot-starter-data-rest")
   compile("org.springframework.boot:spring-boot-starter-hateoas")
   compile("org.springframework.boot:spring-boot-starter-web")
+  compile("org.springframework.data:spring-data-rest-webmvc:2.3.0.RELEASE")
 
+  compile("org.hsqldb:hsqldb:2.3.2")
+  compile("org.projectlombok:lombok:1.16.4")
   compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+  compile("org.javamoney:moneta:0.9")
 
   runtime("org.hsqldb:hsqldb")
 
   testCompile("org.springframework.boot:spring-boot-starter-test")
+  testCompile("junit:junit:4.12")
   testCompile("com.jayway.jsonpath:json-path:2.0.0")
 }
