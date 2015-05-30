@@ -26,7 +26,8 @@ public final class MapBasedBookingRepresentationMatcher extends TypeSafeMatcher<
     protected boolean matchesSafely(final Map<String, ?> item) {
         return propertyMatches(item, "id", reference.getId()) &&
                 propertyMatches(item, "checkIn", fromLocalDate(reference.getCheckIn())) &&
-                propertyMatches(item, "checkOut", fromLocalDate(reference.getCheckOut()));
+                propertyMatches(item, "checkOut", fromLocalDate(reference.getCheckOut())) &&
+                propertyMatches(item, "status", reference.getStatus().name());
     }
 
     private static List<Object> fromLocalDate(final LocalDate localDate) {

@@ -1,6 +1,5 @@
 package org.vtsukur.rest.core.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.javamoney.moneta.Money;
 
@@ -32,7 +31,6 @@ public class Booking extends BaseEntity {
     @ManyToOne
     private Hotel hotel;
 
-    @JsonIgnore
     private Status status;
 
     public enum Status {
