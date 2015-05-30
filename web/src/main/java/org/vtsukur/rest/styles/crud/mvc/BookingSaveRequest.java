@@ -1,4 +1,4 @@
-package org.vtsukur.rest.crud;
+package org.vtsukur.rest.styles.crud.mvc;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

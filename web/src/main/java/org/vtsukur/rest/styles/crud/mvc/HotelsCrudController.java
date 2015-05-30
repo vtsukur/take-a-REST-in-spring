@@ -1,4 +1,4 @@
-package org.vtsukur.rest;
+package org.vtsukur.rest.styles.crud.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package org.vtsukur.rest;
+package org.vtsukur.rest.styles.crud.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,6 @@ import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
 import org.vtsukur.rest.core.domain.HotelRepository;
-import org.vtsukur.rest.crud.BookingSaveRequest;
 
 /**
  * @author volodymyr.tsukur

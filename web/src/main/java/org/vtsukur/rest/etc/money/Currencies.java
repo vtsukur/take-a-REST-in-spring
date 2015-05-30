@@ -1,4 +1,4 @@
-package org.vtsukur.rest.money;
+package org.vtsukur.rest.etc.money;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;

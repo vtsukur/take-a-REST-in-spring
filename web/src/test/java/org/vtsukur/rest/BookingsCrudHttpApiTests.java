@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
 import org.vtsukur.rest.core.domain.Hotel;
-import org.vtsukur.rest.crud.BookingSaveRequest;
+import org.vtsukur.rest.styles.crud.mvc.BookingSaveRequest;
 
 import java.time.LocalDate;
 

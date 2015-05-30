@@ -4,7 +4,7 @@ import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.vtsukur.rest.core.domain.*;
-import org.vtsukur.rest.money.Currencies;
+import org.vtsukur.rest.etc.money.Currencies;
 
 import java.math.BigDecimal;
 import java.util.Set;

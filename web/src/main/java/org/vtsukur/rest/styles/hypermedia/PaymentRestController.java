@@ -1,4 +1,4 @@
-package org.vtsukur.rest.hypermedia;
+package org.vtsukur.rest.styles.hypermedia;
 
 import lombok.Getter;
 import lombok.Setter;

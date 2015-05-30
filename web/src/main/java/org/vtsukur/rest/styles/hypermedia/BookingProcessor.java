@@ -1,4 +1,4 @@
-package org.vtsukur.rest.hypermedia;
+package org.vtsukur.rest.styles.hypermedia;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
