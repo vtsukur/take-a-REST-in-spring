@@ -108,7 +108,6 @@ public class HotelsHttpApiTests {
         @Override
         protected boolean matchesSafely(final Map<String, ?> item) {
             return propertyMatches(item, "name", reference.getName()) &&
-                    propertyMatches(item, "propertyType", reference.getPropertyType().toString()) &&
                     propertyMatches(item, "likes", reference.getLikes()) &&
                     propertyMatches(item, "rating.feedbackCount", reference.getRating().getFeedbackCount()) &&
                     propertyMatches(item, "rating.value", reference.getRating().getValue()) &&

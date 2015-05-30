@@ -21,8 +21,6 @@ public class Hotel extends BaseEntity {
 
     private String name;
 
-    private PropertyType propertyType;
-
     private Integer likes;
 
     @Embedded
@@ -33,11 +31,5 @@ public class Hotel extends BaseEntity {
 
     @OneToMany
     private final Set<Room> rooms = new HashSet<>();
-
-    public enum PropertyType {
-
-        HOTEL
-
-    }
 
 }

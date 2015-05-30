@@ -41,7 +41,6 @@ public class Fixture {
     private Hotel saveNobilis() {
         nobilis = new Hotel(
                 "Nobilis",
-                Hotel.PropertyType.HOTEL,
                 164,
                 new Rating(new BigDecimal(9.4), 246),
                 new Address("Ukraine", "Lviv", 79005, "O.Fredra Street 5"));
@@ -62,7 +61,6 @@ public class Fixture {
         leopolis = hotelRepository.save(
                 new Hotel(
                         "Leopolis",
-                        Hotel.PropertyType.HOTEL,
                         81,
                         new Rating(new BigDecimal(9.2), 125),
                         new Address("Ukraine", "Lviv", 79008, "Teatralna Street 16")));
@@ -72,7 +70,6 @@ public class Fixture {
     private void saveNotaBene() {
         Hotel notaBene = new Hotel(
                 "Nota Bene",
-                Hotel.PropertyType.HOTEL,
                 343,
                 new Rating(new BigDecimal(9.0), 537),
                 new Address("Ukraine", "Lviv", 79015, "Polischuka Street 78A"));
