@@ -1,6 +1,5 @@
 package org.vtsukur.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,9 +39,6 @@ public class BookingsHttpApiTests {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-
-    @Autowired
-    private ObjectMapper jsonSerializer;
 
     @Autowired
     private Fixture fixture;

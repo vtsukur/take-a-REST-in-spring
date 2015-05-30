@@ -3,7 +3,6 @@ package org.vtsukur.rest;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import org.vtsukur.rest.core.domain.Room;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.vtsukur.rest.MapBasedHalRepresentations.linkPresent;
 import static org.vtsukur.rest.MapBasedHalRepresentations.selfLinkPresent;
@@ -85,31 +84,6 @@ public class HotelsHttpApiTests {
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
                 andExpect(jsonPath("$._embedded.rooms", hasSize(oneOfTheHotels.getRooms().size()))).
                 andExpect(jsonPath("$._embedded.rooms[0]", isRoom(oneOfTheHotels.getRooms().iterator().next())));
-    }
-
-    @Test
-    @Ignore
-    public void postNotAllowed() throws Exception {
-        mockMvc.perform(post("/api/hotels")).
-                andExpect(status().isMethodNotAllowed());
-    }
-
-    @Test
-    public void deleteNotAllowed() throws Exception {
-        mockMvc.perform(delete("/api/hotels")).
-                andExpect(status().isMethodNotAllowed());
-    }
-
-    @Test
-    public void putNotAllowed() throws Exception {
-        mockMvc.perform(put("/api/hotels")).
-                andExpect(status().isMethodNotAllowed());
-    }
-
-    @Test
-    public void patchNotAllowed() throws Exception {
-        mockMvc.perform(patch("/api/hotels")).
-                andExpect(status().isMethodNotAllowed());
     }
 
     private static MapBasedHotelRepresentationMatcher isHotel(final Hotel hotel) {
