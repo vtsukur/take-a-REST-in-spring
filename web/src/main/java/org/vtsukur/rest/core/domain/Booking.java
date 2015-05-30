@@ -2,6 +2,7 @@ package org.vtsukur.rest.core.domain;
 
 import lombok.*;
 import org.javamoney.moneta.Money;
+import org.vtsukur.rest.etc.jpa.LocalDateConverter;
 import org.vtsukur.rest.etc.jpa.MoneyConverter;
 import org.vtsukur.rest.etc.money.Currencies;
 
@@ -20,10 +21,10 @@ import java.time.Period;
 @AllArgsConstructor
 public class Booking extends BaseEntity {
 
-    @Lob
+    @Convert(converter = LocalDateConverter.class)
     private LocalDate checkIn;
 
-    @Lob
+    @Convert(converter = LocalDateConverter.class)
     private LocalDate checkOut;
 
     @Convert(converter = MoneyConverter.class)
