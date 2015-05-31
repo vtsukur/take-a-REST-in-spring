@@ -21,6 +21,8 @@ public class Hotel extends BaseEntity {
 
     private String name;
 
+    private String city;
+
     @Embedded
     private Rating rating;
 

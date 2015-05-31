@@ -39,7 +39,7 @@ public class Fixture {
     }
 
     private Hotel saveNobilis() {
-        nobilis = new Hotel("Nobilis", new Rating(new BigDecimal(9.4), 246));
+        nobilis = new Hotel("Nobilis", "Lviv", new Rating(new BigDecimal(9.4), 246));
         addRoom(nobilis, roomRepository.save(new Room("Standard", Money.of(143, Currencies.USD))));
         nobilis = hotelRepository.save(nobilis);
         return nobilis;
@@ -55,13 +55,13 @@ public class Fixture {
 
     private Hotel saveLeopolis() {
         leopolis = hotelRepository.save(
-                new Hotel("Leopolis", new Rating(new BigDecimal(9.2), 125)));
+                new Hotel("Leopolis", "Lviv", new Rating(new BigDecimal(9.2), 125)));
         return leopolis;
 
     }
 
     private void saveNotaBene() {
-        Hotel notaBene = new Hotel("Nota Bene", new Rating(new BigDecimal(9.0), 537));
+        Hotel notaBene = new Hotel("Nota Bene", "Lviv", new Rating(new BigDecimal(9.0), 537));
         addRoom(notaBene, roomRepository.save(new Room("Standard Double Room", Money.of(34, Currencies.USD))));
         addRoom(notaBene, roomRepository.save(new Room("Business Double or Twin Room", Money.of(42, Currencies.USD))));
         addRoom(notaBene, roomRepository.save(new Room("Junior Suite", Money.of(47, Currencies.USD))));
