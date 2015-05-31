@@ -12,12 +12,12 @@ public class LocalDateConverter implements AttributeConverter<LocalDate, Long> {
 
     @Override
     public Long convertToDatabaseColumn(final LocalDate attribute) {
-        return attribute.toEpochDay();
+        return (attribute != null) ? attribute.toEpochDay() : null;
     }
 
     @Override
     public LocalDate convertToEntityAttribute(final Long dbData) {
-        return LocalDate.ofEpochDay(dbData);
+        return (dbData != null) ? LocalDate.ofEpochDay(dbData) : null;
     }
 
 }
