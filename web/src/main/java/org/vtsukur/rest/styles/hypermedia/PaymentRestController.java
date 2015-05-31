@@ -47,7 +47,7 @@ public class PaymentRestController {
     @AllArgsConstructor
     public static class Receipt extends ResourceSupport {
 
-        private String confirmation;
+        private String transaction;
 
     }
 
