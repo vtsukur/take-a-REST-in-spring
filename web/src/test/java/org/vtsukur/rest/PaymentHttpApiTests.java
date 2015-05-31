@@ -1,6 +1,7 @@
 package org.vtsukur.rest;
 
 import org.javamoney.moneta.Money;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,9 +24,10 @@ import org.vtsukur.rest.etc.money.Currencies;
 
 import java.time.LocalDate;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.vtsukur.rest.MapBasedBookingHalRepresentationMatcher.isBooking;
 
 /**
  * @author volodymyr.tsukur
@@ -77,7 +79,9 @@ public class PaymentHttpApiTests {
                 .contentType(MediaType.APPLICATION_JSON));
         final Booking paidBooking = bookingRepository.findOne(referenceBooking.getId());
         resultActions.andExpect(status().isOk())
-                .andExpect(jsonPath("$", isBooking(paidBooking)));
+                .andExpect(jsonPath("$.confirmation", is(notNullValue())))
+                .andExpect(jsonPath("$._links.booking", is(notNullValue())));
+        Assert.assertThat(paidBooking.getStatus(), is(Booking.Status.PAID));
     }
 
     private static String paymentJsonString() {
