@@ -29,7 +29,9 @@ public final class MapBasedBookingHalRepresentationMatcher extends TypeSafeMatch
                 propertyMatches(item, "status", reference.getStatus().name()) &&
                 propertyMatches(item, "price", JacksonModulesConfiguration.MoneyModule.format(reference.getPrice()));
         boolean paymentLinkCheck = (reference.getStatus() != Booking.Status.CREATED || linkPresent(item, "payment"));
-        return propertiesMatch && paymentLinkCheck;
+        boolean updateLinkCheck = (reference.getStatus() != Booking.Status.CREATED || linkPresent(item, "take-a-rest:update"));
+        boolean cancelLinkCheck = (reference.getStatus() != Booking.Status.CREATED || linkPresent(item, "take-a-rest:cancel"));
+        return propertiesMatch && paymentLinkCheck && updateLinkCheck && cancelLinkCheck;
     }
 
     @Override

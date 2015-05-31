@@ -7,6 +7,9 @@ import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Component;
 import org.vtsukur.rest.core.domain.Booking;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 /**
  * @author volodymyr.tsukur
  */
@@ -18,8 +21,11 @@ public class BookingProcessor implements ResourceProcessor<Resource<Booking>> {
 
     @Override
     public Resource<Booking> process(Resource<Booking> resource) {
-        if (resource.getContent().getStatus() == Booking.Status.CREATED) {
-            resource.add(entityLinks.linkForSingleResource(resource.getContent()).withRel("payment"));
+        Booking booking = resource.getContent();
+        if (booking.getStatus() == Booking.Status.CREATED) {
+            resource.add(linkTo(methodOn(PaymentRestController.class).pay(booking.getId(), null)).withRel("payment"));
+            resource.add(entityLinks.linkToSingleResource(booking).withRel("update"));
+            resource.add(entityLinks.linkToSingleResource(booking).withRel("cancel"));
         }
         return resource;
     }
