@@ -16,8 +16,9 @@ public class BookingProcessor implements ResourceProcessor<Resource<Booking>> {
 
     @Override
     public Resource<Booking> process(Resource<Booking> resource) {
-        if (resource.getContent().getStatus() == Booking.Status.CREATED) {
-            resource.add(linkTo(methodOn(PaymentRestController.class).pay(resource.getContent().getId(), null)).withRel("payment"));
+        Booking booking = resource.getContent();
+        if (booking.getStatus() == Booking.Status.CREATED) {
+            resource.add(linkTo(methodOn(PaymentRestController.class).pay(booking.getId(), null)).withRel("payment"));
         }
         return resource;
     }
