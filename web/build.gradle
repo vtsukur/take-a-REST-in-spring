@@ -22,6 +22,10 @@ ext {
 
 jar {
   baseName = "take-a-REST-in-spring"
+  dependsOn asciidoctor
+  from ("${asciidoctor.outputDir}/html5") {
+    into 'static/docs'
+  }
 }
 
 dependencies {
