@@ -26,7 +26,8 @@ public class PaymentRestController {
     private EntityLinks entityLinks;
 
     @RequestMapping(method = RequestMethod.POST)
-    public Receipt pay(@PathVariable("id") Booking booking, @RequestBody PaymentRequest paymentRequest) {
+    public Receipt pay(@PathVariable("id") Long id, @RequestBody PaymentRequest paymentRequest) {
+        Booking booking = bookingRepository.findOne(id);
         booking.setStatus(Booking.Status.PAID);
         bookingRepository.save(booking);
         Receipt receipt = new Receipt(UUID.randomUUID().toString());
