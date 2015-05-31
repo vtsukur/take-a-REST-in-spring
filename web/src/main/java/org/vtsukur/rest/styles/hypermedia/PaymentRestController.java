@@ -1,12 +1,16 @@
 package org.vtsukur.rest.styles.hypermedia;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityLinks;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.web.bind.annotation.*;
 import org.vtsukur.rest.core.domain.Booking;
 import org.vtsukur.rest.core.domain.BookingRepository;
+
+import java.util.UUID;
 
 /**
  * @author volodymyr.tsukur
@@ -18,19 +22,31 @@ public class PaymentRestController {
     @Autowired
     private BookingRepository bookingRepository;
 
+    @Autowired
+    private EntityLinks entityLinks;
+
     @RequestMapping(method = RequestMethod.POST)
-    public Resource<Booking> pay(
-            @PathVariable("id") Booking booking,
-            @RequestBody PaymentRequest paymentRequest) {
+    public Receipt pay(@PathVariable("id") Booking booking, @RequestBody PaymentRequest paymentRequest) {
         booking.setStatus(Booking.Status.PAID);
-        return new Resource<>(bookingRepository.save(booking));
+        bookingRepository.save(booking);
+        Receipt receipt = new Receipt(UUID.randomUUID().toString());
+        receipt.add(entityLinks.linkToSingleResource(booking));
+        return receipt;
     }
 
-    @Getter
-    @Setter
+    @Data
     public static class PaymentRequest {
 
         private String cardNumber;
+
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = true)
+    @AllArgsConstructor
+    public static class Receipt extends ResourceSupport {
+
+        private String confirmation;
 
     }
 
