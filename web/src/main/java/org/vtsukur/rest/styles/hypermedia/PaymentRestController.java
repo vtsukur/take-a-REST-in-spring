@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,8 @@ import java.util.UUID;
 /**
  * @author volodymyr.tsukur
  */
-@RestController
-@RequestMapping("/api/bookings/{id}/payment")
+@RepositoryRestController
+@RequestMapping("/bookings/{id}/payment")
 public class PaymentRestController {
 
     @Autowired
@@ -26,6 +27,7 @@ public class PaymentRestController {
     private EntityLinks entityLinks;
 
     @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
     public Receipt pay(@PathVariable("id") Long id, @RequestBody PaymentRequest paymentRequest) {
         Booking booking = bookingRepository.findOne(id);
         booking.setStatus(Booking.Status.PAID);
