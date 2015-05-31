@@ -25,6 +25,8 @@ import org.vtsukur.rest.core.domain.Room;
 
 import java.time.LocalDate;
 
+import static org.springframework.restdocs.RestDocumentation.document;
+import static org.springframework.restdocs.RestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.vtsukur.rest.MapBasedBookingHalRepresentationMatcher.isBooking;
 
@@ -54,7 +56,11 @@ public class BookingsHttpApiTests {
 
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(webApplicationContext)
+                .apply(documentationConfiguration())
+                .alwaysDo(document("{method-name}"))
+                .build();
 
         fixture.init();
         Hotel oneOfTheHotels = fixture.getNobilis();
@@ -70,7 +76,7 @@ public class BookingsHttpApiTests {
     }
 
     @Test
-    public void post() throws Exception {
+    public void createBooking() throws Exception {
         final String content = saveRequestJsonString(referenceBooking);
         final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/bookings")
@@ -79,12 +85,12 @@ public class BookingsHttpApiTests {
                 .contentType(MediaType.APPLICATION_JSON));
         final Booking createdBooking = bookingRepository.findAll(new Sort(Sort.Direction.DESC, "id")).iterator().next();
         resultActions.andExpect(status().isCreated())
-                .andExpect(header().string(HttpHeaders.LOCATION, "http://localhost/api/bookings/" + createdBooking.getId()))
+                .andExpect(header().string(HttpHeaders.LOCATION, "http://localhost:8080/api/bookings/" + createdBooking.getId()))
                 .andExpect(jsonPath("$", isBooking(createdBooking)));
     }
 
     @Test
-    public void mergeOne() throws Exception {
+    public void mergeBooking() throws Exception {
         bookingRepository.save(referenceBooking);
 
         final String content = saveRequestJsonString(
@@ -105,7 +111,7 @@ public class BookingsHttpApiTests {
     }
 
     @Test
-    public void deleteOne() throws Exception {
+    public void deleteBooking() throws Exception {
         bookingRepository.save(referenceBooking);
 
         mockMvc.perform(MockMvcRequestBuilders

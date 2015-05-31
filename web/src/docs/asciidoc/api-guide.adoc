@@ -1,0 +1,94 @@
+= Take a REST in Spring! API Guide
+Volodymyr Tsukur;
+:doctype: book
+:toc:
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PUT`
+| Used to create a new resource as well as replace existing resource
+
+| `PATCH`
+| Used to update an existing resource, including partial updates
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully. The resource's URI is available from the response's
+`Location` header
+
+| `204 No Content`
+| An update to an existing resource has been applied successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `404 Not Found`
+| The requested resource did not exist
+
+| `405 Method Not Allowed`
+| The requested resource does not support method
+|===
+
+[[overview-hypermedia]]
+== Hypermedia
+
+This API uses hypermedia and resources include links to other resources in their
+responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
+Language (HAL)] format. Links can be found beneath the `_links` key. Users of the API should
+not create URIs themselves, instead they should use the above-described links to navigate
+from resource to resource.
+
+[[resources]]
+= Resources
+
+[[resources-bookings]]
+== Bookings
+
+The Bookings resource is used to create and list bookings
+
+[[resources-bookings-create]]
+
+=== Creating a booking
+
+A `POST` request is used to create a note
+
+==== Example curl request
+
+include::{generated}/create-booking/curl-request.adoc[]
+
+==== Example HTTP request
+
+include::{generated}/create-booking/http-request.adoc[]
+
+==== Example response
+
+include::{generated}/create-booking/http-response.adoc[]
