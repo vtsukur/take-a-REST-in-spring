@@ -80,7 +80,7 @@ public class PaymentHttpApiTests {
         final Booking paidBooking = bookingRepository.findOne(referenceBooking.getId());
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.transaction", is(notNullValue())))
-                .andExpect(jsonPath("$._links.booking", is(notNullValue())));
+                .andExpect(jsonPath("$._links.take-a-rest:booking", is(notNullValue())));
         Assert.assertThat(paidBooking.getStatus(), is(Booking.Status.PAID));
     }
 

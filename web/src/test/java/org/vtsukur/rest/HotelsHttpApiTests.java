@@ -60,9 +60,9 @@ public class HotelsHttpApiTests {
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
                 andExpect(jsonPath("$._links.self.href", not(isEmptyOrNullString()))).
                 andExpect(jsonPath("$._links.self.templated", is(true))).
-                andExpect(jsonPath("$._embedded.hotels", hasSize(2))).
-                andExpect(jsonPath("$._embedded.hotels[0]", isHotel(oneOfTheHotels))).
-                andExpect(jsonPath("$._embedded.hotels[1]", isHotel(fixture.getLeopolis()))).
+                andExpect(jsonPath("$._embedded.take-a-rest:hotels", hasSize(2))).
+                andExpect(jsonPath("$._embedded.take-a-rest:hotels[0]", isHotel(oneOfTheHotels))).
+                andExpect(jsonPath("$._embedded.take-a-rest:hotels[1]", isHotel(fixture.getLeopolis()))).
                 andExpect(jsonPath("$.page.size", is(2))).
                 andExpect(jsonPath("$.page.totalElements", is(3))).
                 andExpect(jsonPath("$.page.totalPages", is(2))).
@@ -82,8 +82,8 @@ public class HotelsHttpApiTests {
         mockMvc.perform(get("/api/hotels/" + oneOfTheHotels.getId() + "/rooms")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaTypes.HAL_JSON)).
-                andExpect(jsonPath("$._embedded.rooms", hasSize(oneOfTheHotels.getRooms().size()))).
-                andExpect(jsonPath("$._embedded.rooms[0]", isRoom(oneOfTheHotels.getRooms().iterator().next())));
+                andExpect(jsonPath("$._embedded.take-a-rest:rooms", hasSize(oneOfTheHotels.getRooms().size()))).
+                andExpect(jsonPath("$._embedded.take-a-rest:rooms[0]", isRoom(oneOfTheHotels.getRooms().iterator().next())));
     }
 
     private static MapBasedHotelRepresentationMatcher isHotel(final Hotel hotel) {
@@ -110,7 +110,7 @@ public class HotelsHttpApiTests {
             return propertyMatches(item, "name", reference.getName()) &&
                     propertyMatches(item, "rating.feedbackCount", reference.getRating().getFeedbackCount()) &&
                     propertyMatches(item, "rating.value", reference.getRating().getValue()) &&
-                    linkPresent(item, "rooms") &&
+                    linkPresent(item, "take-a-rest:rooms") &&
                     selfLinkPresent(item);
         }
 
