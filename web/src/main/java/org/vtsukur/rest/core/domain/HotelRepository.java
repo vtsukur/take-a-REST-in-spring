@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 /**
  * @author volodymyr.tsukur
  */
-@RepositoryRestResource
+@RepositoryRestResource(excerptProjection = HotelFullProjection.class)
 public interface HotelRepository extends PagingAndSortingRepository<Hotel, Long> {
 
     @RestResource(exported = false)
